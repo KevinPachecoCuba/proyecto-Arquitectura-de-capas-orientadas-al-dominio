@@ -1,0 +1,89 @@
+﻿@model prueba.Models.ViewModels.vmestudiante
+@{
+    ViewBag.Title = "Crear Nuevo Estudiante";
+
+}
+
+<h2>@ViewBag.Title</h2>
+@using (Html.BeginForm("nuevoEstudiante", "estudiante/estudiante", FormMethod.Post))
+{
+
+    <div class="row">
+        <div class="col-md-4"></div>
+        <div class="col-md-4">
+            <div class="card">
+                <h5 class="card-header">Nuevo Estudiante</h5>
+                <div class="card-body">
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">ID:</label>
+
+                        
+                        @Html.TextBoxFor(d => d.idestudiante, "", new { @class = "form-control" })
+
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">DNI:</label>
+                        @Html.ValidationMessageFor(d => d.dni, null, new { @class = "red" })
+                        @Html.TextBoxFor(d => d.dni, "", new { @class = "form-control" })
+                        
+
+                    </div>
+
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Nombre:</label>
+                        @Html.TextBoxFor(d => d.nombre, "", new { @class = "form-control" })
+                        @Html.ValidationMessageFor(d => d.nombre, null, new { @class = "red" })
+                        
+
+                    </div>
+
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Apellido Paterno:</label>
+                        @Html.TextBoxFor(d => d.ape_pat, "", new { @class = "form-control" })
+
+                    </div>
+
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Apellido Materno:</label>
+                        @Html.TextBoxFor(d => d.ape_mat, "", new { @class = "form-control" })
+
+                    </div>
+
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Direccion:</label>
+                        @Html.TextBoxFor(d => d.direccion, "", new { @class = "form-control" })
+
+                    </div>
+
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Celular:</label>
+                        @Html.TextBoxFor(d => d.celular, "", new { @class = "form-control" })
+
+                    </div>
+
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Correo:</label>
+                        @Html.TextBoxFor(d => d.correo, "", new { @class = "form-control" })
+
+                    </div>
+
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Fecha de Nacimiento:</label>
+                        @Html.TextBoxFor(d => d.fec_nac, "", new { @class = "form-control" })
+
+                    </div>
+
+                    <div style="text-align:right">
+                        <input value="Guardar" class="btn btn-primary" type="submit" />
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+        <div class="col-md-4"></div>
+
+    </div>
+}
+
+

@@ -1,0 +1,61 @@
+﻿
+@{ ViewBag.Title = "Estudiante";}
+
+@model List<prueba.Models.ViewModels.vmestudiante>
+
+<h2>@ViewBag.Title</h2>
+
+<div class="container">
+    <div class="card-body">
+        <p align="right">
+            <a href="~/estudiante/nuevoestudiante" class="btn btn-primary">agregar un nuevo estudiante</a>
+        </p>
+    </div>
+    <div class="table-responsive">
+        <table id="e2" class="table table-striped table-bordered" cellpadding="0" width="100%">
+            <thead>
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">DNI</th>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Apelido paterno</th>
+                    <th scope="col">Apellido materno</th>
+                    <th scope="col">Direccion</th>
+                    <th scope="col">Celular</th>
+                    <th scope="col">Correo</th>
+                    <th scope="col">Fecha de Nacimiento</th>
+                    <th class="text-center">Accion</th>
+
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var oElemento in Model)
+                {
+                    <tr>
+                        <td>@oElemento.idestudiante</td>
+                        <td>@oElemento.dni</td>
+                        <td>@oElemento.nombre</td>
+                        <td>@oElemento.ape_pat</td>
+                        <td>@oElemento.ape_mat</td>
+                        <td>@oElemento.direccion</td>
+                        <td>@oElemento.celular</td>
+                        <td>@oElemento.correo</td>
+                        <td>@oElemento.fec_nac</td>
+
+
+                        <td>
+                            <button type="button" class="btn btn-success"><i class="fas fa-user-edit"></i></button>
+                            <button type="button" class="btn btn-danger"><i class="fas fa-trash-alt"></i></button>
+
+                        </td>
+                      
+                    </tr>
+
+                }
+            </tbody>
+        </table>
+
+
+
+    </div>
+</div>

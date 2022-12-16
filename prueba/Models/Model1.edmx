@@ -1,0 +1,312 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="colegioModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="curso">
+          <Key>
+            <PropertyRef Name="idcurso" />
+          </Key>
+          <Property Name="idcurso" Type="int" Nullable="false" />
+          <Property Name="cod" Type="nvarchar" MaxLength="12" />
+          <Property Name="nombre" Type="nvarchar" MaxLength="120" />
+          <Property Name="credito" Type="nvarchar" MaxLength="120" />
+        </EntityType>
+        <EntityType Name="dicta">
+          <Key>
+            <PropertyRef Name="iddicta" />
+          </Key>
+          <Property Name="iddicta" Type="int" Nullable="false" />
+          <Property Name="idcurso" Type="int" />
+          <Property Name="idprofesor" Type="int" />
+        </EntityType>
+        <EntityType Name="estudiante">
+          <Key>
+            <PropertyRef Name="idestudiante" />
+          </Key>
+          <Property Name="idestudiante" Type="int" Nullable="false" />
+          <Property Name="dni" Type="nvarchar" MaxLength="8" />
+          <Property Name="nombre" Type="nvarchar" MaxLength="150" />
+          <Property Name="ape_pat" Type="nvarchar" MaxLength="150" />
+          <Property Name="ape_mat" Type="nvarchar" MaxLength="150" />
+          <Property Name="direccion" Type="nvarchar" MaxLength="150" />
+          <Property Name="celular" Type="nvarchar" MaxLength="15" />
+          <Property Name="correo" Type="nchar" MaxLength="80" />
+          <Property Name="fec_nac" Type="datetime" />
+        </EntityType>
+        <EntityType Name="matricula">
+          <Key>
+            <PropertyRef Name="idmatricula" />
+          </Key>
+          <Property Name="idmatricula" Type="int" Nullable="false" />
+          <Property Name="idestudiante" Type="int" />
+          <Property Name="idcurso" Type="int" />
+        </EntityType>
+        <EntityType Name="profesor">
+          <Key>
+            <PropertyRef Name="idprofesor" />
+          </Key>
+          <Property Name="idprofesor" Type="int" Nullable="false" />
+          <Property Name="dni" Type="nvarchar" MaxLength="8" />
+          <Property Name="nombre" Type="nvarchar" MaxLength="120" />
+          <Property Name="ape_pat" Type="nvarchar" MaxLength="120" />
+          <Property Name="ape_mat" Type="nvarchar" MaxLength="120" />
+          <Property Name="especialidad" Type="nvarchar" MaxLength="120" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <Association Name="FK_dicta_curso">
+          <End Role="curso" Type="Self.curso" Multiplicity="0..1" />
+          <End Role="dicta" Type="Self.dicta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="curso">
+              <PropertyRef Name="idcurso" />
+            </Principal>
+            <Dependent Role="dicta">
+              <PropertyRef Name="idcurso" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dicta_profesor">
+          <End Role="profesor" Type="Self.profesor" Multiplicity="0..1" />
+          <End Role="dicta" Type="Self.dicta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="profesor">
+              <PropertyRef Name="idprofesor" />
+            </Principal>
+            <Dependent Role="dicta">
+              <PropertyRef Name="idprofesor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="colegioModelStoreContainer">
+          <EntitySet Name="curso" EntityType="Self.curso" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="dicta" EntityType="Self.dicta" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="estudiante" EntityType="Self.estudiante" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="matricula" EntityType="Self.matricula" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="profesor" EntityType="Self.profesor" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_dicta_curso" Association="Self.FK_dicta_curso">
+            <End Role="curso" EntitySet="curso" />
+            <End Role="dicta" EntitySet="dicta" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dicta_profesor" Association="Self.FK_dicta_profesor">
+            <End Role="profesor" EntitySet="profesor" />
+            <End Role="dicta" EntitySet="dicta" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="colegioModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="curso">
+          <Key>
+            <PropertyRef Name="idcurso" />
+          </Key>
+          <Property Name="idcurso" Type="Int32" Nullable="false" />
+          <Property Name="cod" Type="String" MaxLength="12" FixedLength="false" Unicode="true" />
+          <Property Name="nombre" Type="String" MaxLength="120" FixedLength="false" Unicode="true" />
+          <Property Name="credito" Type="String" MaxLength="120" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="dicta" Relationship="Self.FK_dicta_curso" FromRole="curso" ToRole="dicta" />
+        </EntityType>
+        <EntityType Name="dicta">
+          <Key>
+            <PropertyRef Name="iddicta" />
+          </Key>
+          <Property Name="iddicta" Type="Int32" Nullable="false" />
+          <Property Name="idcurso" Type="Int32" />
+          <Property Name="idprofesor" Type="Int32" />
+          <NavigationProperty Name="curso" Relationship="Self.FK_dicta_curso" FromRole="dicta" ToRole="curso" />
+          <NavigationProperty Name="profesor" Relationship="Self.FK_dicta_profesor" FromRole="dicta" ToRole="profesor" />
+        </EntityType>
+        <EntityType Name="estudiante">
+          <Key>
+            <PropertyRef Name="idestudiante" />
+          </Key>
+          <Property Name="idestudiante" Type="Int32" Nullable="false" />
+          <Property Name="dni" Type="String" MaxLength="8" FixedLength="false" Unicode="true" />
+          <Property Name="nombre" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="ape_pat" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="ape_mat" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="direccion" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="celular" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+          <Property Name="correo" Type="String" MaxLength="80" FixedLength="true" Unicode="true" />
+          <Property Name="fec_nac" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="matricula">
+          <Key>
+            <PropertyRef Name="idmatricula" />
+          </Key>
+          <Property Name="idmatricula" Type="Int32" Nullable="false" />
+          <Property Name="idestudiante" Type="Int32" />
+          <Property Name="idcurso" Type="Int32" />
+        </EntityType>
+        <EntityType Name="profesor">
+          <Key>
+            <PropertyRef Name="idprofesor" />
+          </Key>
+          <Property Name="idprofesor" Type="Int32" Nullable="false" />
+          <Property Name="dni" Type="String" MaxLength="8" FixedLength="false" Unicode="true" />
+          <Property Name="nombre" Type="String" MaxLength="120" FixedLength="false" Unicode="true" />
+          <Property Name="ape_pat" Type="String" MaxLength="120" FixedLength="false" Unicode="true" />
+          <Property Name="ape_mat" Type="String" MaxLength="120" FixedLength="false" Unicode="true" />
+          <Property Name="especialidad" Type="String" MaxLength="120" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="dicta" Relationship="Self.FK_dicta_profesor" FromRole="profesor" ToRole="dicta" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <Association Name="FK_dicta_curso">
+          <End Role="curso" Type="Self.curso" Multiplicity="0..1" />
+          <End Role="dicta" Type="Self.dicta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="curso">
+              <PropertyRef Name="idcurso" />
+            </Principal>
+            <Dependent Role="dicta">
+              <PropertyRef Name="idcurso" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dicta_profesor">
+          <End Role="profesor" Type="Self.profesor" Multiplicity="0..1" />
+          <End Role="dicta" Type="Self.dicta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="profesor">
+              <PropertyRef Name="idprofesor" />
+            </Principal>
+            <Dependent Role="dicta">
+              <PropertyRef Name="idprofesor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="colegioEntities1" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="curso" EntityType="Self.curso" />
+          <EntitySet Name="dicta" EntityType="Self.dicta" />
+          <EntitySet Name="estudiante" EntityType="Self.estudiante" />
+          <EntitySet Name="matricula" EntityType="Self.matricula" />
+          <EntitySet Name="profesor" EntityType="Self.profesor" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+          <AssociationSet Name="FK_dicta_curso" Association="Self.FK_dicta_curso">
+            <End Role="curso" EntitySet="curso" />
+            <End Role="dicta" EntitySet="dicta" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dicta_profesor" Association="Self.FK_dicta_profesor">
+            <End Role="profesor" EntitySet="profesor" />
+            <End Role="dicta" EntitySet="dicta" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="colegioModelStoreContainer" CdmEntityContainer="colegioEntities1">
+          <EntitySetMapping Name="curso">
+            <EntityTypeMapping TypeName="colegioModel.curso">
+              <MappingFragment StoreEntitySet="curso">
+                <ScalarProperty Name="idcurso" ColumnName="idcurso" />
+                <ScalarProperty Name="cod" ColumnName="cod" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="credito" ColumnName="credito" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="dicta">
+            <EntityTypeMapping TypeName="colegioModel.dicta">
+              <MappingFragment StoreEntitySet="dicta">
+                <ScalarProperty Name="iddicta" ColumnName="iddicta" />
+                <ScalarProperty Name="idcurso" ColumnName="idcurso" />
+                <ScalarProperty Name="idprofesor" ColumnName="idprofesor" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="estudiante">
+            <EntityTypeMapping TypeName="colegioModel.estudiante">
+              <MappingFragment StoreEntitySet="estudiante">
+                <ScalarProperty Name="idestudiante" ColumnName="idestudiante" />
+                <ScalarProperty Name="dni" ColumnName="dni" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="ape_pat" ColumnName="ape_pat" />
+                <ScalarProperty Name="ape_mat" ColumnName="ape_mat" />
+                <ScalarProperty Name="direccion" ColumnName="direccion" />
+                <ScalarProperty Name="celular" ColumnName="celular" />
+                <ScalarProperty Name="correo" ColumnName="correo" />
+                <ScalarProperty Name="fec_nac" ColumnName="fec_nac" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="matricula">
+            <EntityTypeMapping TypeName="colegioModel.matricula">
+              <MappingFragment StoreEntitySet="matricula">
+                <ScalarProperty Name="idmatricula" ColumnName="idmatricula" />
+                <ScalarProperty Name="idestudiante" ColumnName="idestudiante" />
+                <ScalarProperty Name="idcurso" ColumnName="idcurso" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="profesor">
+            <EntityTypeMapping TypeName="colegioModel.profesor">
+              <MappingFragment StoreEntitySet="profesor">
+                <ScalarProperty Name="idprofesor" ColumnName="idprofesor" />
+                <ScalarProperty Name="dni" ColumnName="dni" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="ape_pat" ColumnName="ape_pat" />
+                <ScalarProperty Name="ape_mat" ColumnName="ape_mat" />
+                <ScalarProperty Name="especialidad" ColumnName="especialidad" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="colegioModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
